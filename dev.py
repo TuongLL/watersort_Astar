@@ -1,3 +1,4 @@
+from cmath import log
 import copy
 from queue import PriorityQueue
 class Puzzle(object):
@@ -100,38 +101,40 @@ class Puzzle(object):
             a += "\\"+"_".center(width,"_")+"/"+space
         print(a)
         return None
-    def A_star_cost(self)->int:
+    def h_n(self)->int:
         #smaller is better
         # Acceptable and consistent heuristics
         step = 0
         bottom = {}
+        print(self.state)
         for cup in self.state:
             if len(cup)==0:
                 continue
             bottom[cup[0]] = bottom.get(cup[0],-1) + 1
             first_color = cup[0]
-            all_same = 0
+            all_same = True
             for i in range(1,len(cup)):
                 if cup[i] != first_color:
                     first_color = cup[i]
                     step += 1
-                    all_same = 1
-            if all_same == 0 and len(cup) == self.capacity:
+                    all_same = False
+            if all_same and len(cup) == self.capacity:
                 step -= 1
-            if all_same == 0 and len(cup) < self.capacity and bottom[cup[0]]>=1:
-                step += 1
+            # if all_same and len(cup) < self.capacity and bottom[cup[0]]>=1:
+            #     step += 1
         step += sum(bottom.values())
+        print(bottom, step)
         return step
-
-def heuristic_function(path, suc_pz):
-    return len(path)+suc_pz.A_star_cost()
+def g_n(path):
+    return len(path)
+def f_n(path, h_n):
+    return g_n(path)+ h_n()
 def validate_path(path):
     return (path[-1][1] == path[-2][0] and path[-1][0] == path[-2][1])
 def A_star(puzzle:Puzzle,attemp=100000):
     ttt = 0
     q = PriorityQueue()
-    q.put((puzzle.A_star_cost(),[],puzzle))
-    print(puzzle.A_star_cost())
+    q.put((puzzle.h_n(),[],puzzle))
     while not q.empty():
         score,path,pz = q.get()
         if pz.isRight():
@@ -140,7 +143,7 @@ def A_star(puzzle:Puzzle,attemp=100000):
         if len(path)<2 or (len(path)>=2 and not validate_path(path)):
             for succ in pz.get_successors():
                 act,suc_pz = succ
-                q.put((heuristic_function(path, suc_pz),path.copy()+[act],suc_pz))
+                q.put((f_n(path, suc_pz.h_n),path.copy()+[act],suc_pz))
         ttt += 1
         if (ttt>attemp):
             print("Maximum number of times exceeded")
@@ -149,7 +152,7 @@ def A_star(puzzle:Puzzle,attemp=100000):
     return None
 test = Puzzle()
 # test.create()
-test.ereadfile("89.txt")
+test.ereadfile("90.txt")
 test.print()
 a = A_star(test)
 
