@@ -106,7 +106,6 @@ class Puzzle(object):
         # Acceptable and consistent heuristics
         step = 0
         bottom = {}
-        print(self.state)
         for cup in self.state:
             if len(cup)==0:
                 continue
@@ -120,10 +119,9 @@ class Puzzle(object):
                     all_same = False
             if all_same and len(cup) == self.capacity:
                 step -= 1
-            # if all_same and len(cup) < self.capacity and bottom[cup[0]]>=1:
-            #     step += 1
+            if all_same and len(cup) < self.capacity and bottom[cup[0]]>=1:
+                step += 1
         step += sum(bottom.values())
-        print(bottom, step)
         return step
 def g_n(path):
     return len(path)
@@ -152,7 +150,7 @@ def A_star(puzzle:Puzzle,attemp=100000):
     return None
 test = Puzzle()
 # test.create()
-test.ereadfile("90.txt")
+test.ereadfile("p.txt")
 test.print()
 a = A_star(test)
 
