@@ -119,8 +119,6 @@ class Puzzle(object):
                     all_same = False
             if all_same and len(cup) == self.capacity:
                 step -= 1
-            if all_same and len(cup) < self.capacity and bottom[cup[0]]>=1:
-                step += 1
         step += sum(bottom.values())
         return step
 def g_n(path):
