@@ -1,5 +1,5 @@
 import puzzleClass
-from bfs_algorithm import bfs
+from dfs_algorithm import dfs
 from astar_algorithm import A_star
 test = puzzleClass.Puzzle()
 for i in range(1,41):
@@ -7,7 +7,7 @@ for i in range(1,41):
     test.ereadfile('./level/level'+str(i)+'.txt')
     test.print()
     # a = A_star(test)
-    a = bfs(test)
+    a = dfs(test)
     if a == None:
         print("None!")
     else:
