@@ -73,6 +73,14 @@ class Puzzle(object):
                     if self.state[i][j] != self.state[i][0]:
                         return False
         return True
+    def convertToStr(self):
+        newState = []
+        for cup in self.state:
+            temp_cup = copy.copy(cup)
+            while len(temp_cup) < self.capacity:
+                temp_cup.append('.')
+            newState.append(temp_cup)
+        return (''.join(str(item) for innerlist in newState for item in innerlist))
     def print(self,cup_width=6, cup_interval=3):
     	# Print current status
         if self.state is None:
