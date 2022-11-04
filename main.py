@@ -3,12 +3,13 @@ import puzzleClass
 from dfs_algorithm import dfs
 from astar_algorithm import A_star
 
-def printResult(test, level, result):
+def printResult(test, level, search):
     if level == 'all':
         for i in range(1,41):
             print('Level: ' + str(i))
             test.readFile('./level/level'+str(i)+'.txt')
             test.print()
+            result = dfs(test)
             if result == None:
                 print("None!")
             else:
@@ -20,6 +21,7 @@ def printResult(test, level, result):
         print('Level: ' + level)
         test.readFile('./level/level'+level+'.txt')
         test.print()
+        result = A_star(test)
         if result == None:
             print("None!")
         else:
@@ -37,37 +39,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.search == 'dfs':
-        result = dfs(test)
-        printResult(test, args.level, result)
+        printResult(test, args.level, args.search)
 
     elif args.search == 'astar':
-        result = A_star(test)
-        printResult(test, args.level, result)
+        printResult(test, args.level, args.search)
 
     else: 
         print('Invalid searching method, please check it again')
-
-    # if args.level == 'all':
-    #     for i in range(1, 41):
-    #         print('Level: ' + str(i))
-    #         test.readFile('./level/level'+str(i)+'.txt')
-    #         test.print()
-    #         if (args.search == 'dfs'):
-    #             result = dfs(test)
-    #             if result == None:
-    #                 print("None!")
-    #             else:
-    #                 print("%d steps" % len(result[0]))
-    #                 print(result[0])
-    #                 result[1].print()
-
-    #         if (args.search == 'astar'):
-    #             result = A_star(test)
-    #             if result == None:
-    #                 print("None!")
-    #             else:
-    #                 print("%d steps" % len(result[0]))
-    #                 print(result[0])
-    #                 result[1].print()
-    #         else:
-    #             print("Invalid searching method, please check it again!")
