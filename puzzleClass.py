@@ -6,7 +6,6 @@ class Puzzle(object):
     def __init__(self, cup_num=0, capacity=0) -> None:
         self.cup_num = cup_num  # Number of cups
         self.capacity = capacity  # Cup capacity
-        # self.empty_cup = 0
         self.state = None
 
     def create(self):
@@ -21,8 +20,6 @@ class Puzzle(object):
             # The cup is empty
             water = input("The first%d A cup(From bottom to top): " %
                           i).split()[:capacity]
-            # if len(water) == 0:
-            #     self.empty_cup += 1
             self.state.append(water)
         return self.state
 
@@ -34,8 +31,6 @@ class Puzzle(object):
             self.state = []
             for i in range(self.cup_num):
                 water = f.readline().split()[:self.capacity]
-                # if len(water) == 0:
-                # self.empty_cup += 1
                 self.state.append(water)
         return self.state
 
@@ -65,7 +60,6 @@ class Puzzle(object):
             state[i].append(state[j].pop())
             # Move one piece of water at a time instead of one share
         new_puzzle = Puzzle(self.cup_num, self.capacity)
-        # new_puzzle.empty_cup = self.empty_cup
         new_puzzle.state = state
         return new_puzzle
 
