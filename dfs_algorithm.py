@@ -2,24 +2,24 @@ from puzzleClass import Puzzle
 
 
 def dfs(puzzle: Puzzle, attemp=100000):
-    ttt = 0
-    q = []
-    visitted = set()
-    q.append(([], puzzle))
-    visitted.add(puzzle.convertToStr())
-    while len(q) > 0:
-        path, pz = q.pop(-1)
-        if pz.isRight():
-            print("%d states searched" % ttt)
+    state_count = 0
+    stack = []
+    visited = set()
+    stack.append(([], puzzle))
+    visited.add(puzzle.convertToStr())
+    while len(stack) > 0:
+        path, pz = stack.pop(-1)
+        if pz.stateChecking():
+            print("%d states searched" % state_count)
             return path, pz
-        for succ in pz.get_successors():
+        for succ in pz.getSuccessors():
             act, suc_pz = succ
-            if suc_pz.convertToStr() not in visitted:
-                q.append((path.copy()+[act], suc_pz))
-                visitted.add(suc_pz.convertToStr())
-        ttt += 1
-        if (ttt > attemp):
+            if suc_pz.convertToStr() not in visited:
+                stack.append((path.copy()+[act], suc_pz))
+                visited.add(suc_pz.convertToStr())
+        state_count += 1
+        if (state_count > attemp):
             print("Maximum number of times exceeded")
             return None
-    print("unsolvable")
+    print("Unsolvable")
     return None

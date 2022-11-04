@@ -6,7 +6,7 @@ class Puzzle(object):
     def __init__(self, cup_num=0, capacity=0) -> None:
         self.cup_num = cup_num  # Number of cups
         self.capacity = capacity  # Cup capacity
-        self.empty_cup = 0
+        # self.empty_cup = 0
         self.state = None
 
     def create(self):
@@ -21,34 +21,34 @@ class Puzzle(object):
             # The cup is empty
             water = input("The first%d A cup(From bottom to top): " %
                           i).split()[:capacity]
-            if len(water) == 0:
-                self.empty_cup += 1
+            # if len(water) == 0:
+            #     self.empty_cup += 1
             self.state.append(water)
         return self.state
 
-    def ereadfile(self, file):
-        # Read status from file
+    def readFile(self, file):
+        # Read state from file
         with open(file, 'r') as f:
             self.cup_num = int(f.readline())
             self.capacity = int(f.readline())
             self.state = []
             for i in range(self.cup_num):
                 water = f.readline().split()[:self.capacity]
-                if len(water) == 0:
-                    self.empty_cup += 1
+                # if len(water) == 0:
+                # self.empty_cup += 1
                 self.state.append(water)
         return self.state
 
-    def get_successors(self):
+    def getSuccessors(self):
         # Get all subsequent States and actions
         suc = []
         for i in range(self.cup_num):
             for j in range(self.cup_num):
-                if self.isAction((j, i)):
+                if self.isLegalAction((j, i)):
                     suc.append(((j, i), self.move((j, i))))
         return suc
 
-    def isAction(self, act: tuple, state=None):
+    def isLegalAction(self, act: tuple, state=None):
         # Judge whether it is a legal action
         # from j to i
         j, i = act
@@ -61,15 +61,15 @@ class Puzzle(object):
         # Act on the current state and generate a new state
         j, i = act
         state = copy.deepcopy(self.state)
-        while self.isAction(act, state):
+        while self.isLegalAction(act, state):
             state[i].append(state[j].pop())
             # Move one piece of water at a time instead of one share
         new_puzzle = Puzzle(self.cup_num, self.capacity)
-        new_puzzle.empty_cup = self.empty_cup
+        # new_puzzle.empty_cup = self.empty_cup
         new_puzzle.state = state
         return new_puzzle
 
-    def isRight(self) -> bool:
+    def stateChecking(self) -> bool:
         # Is the target state
         if self.state is None:
             return False
@@ -83,13 +83,13 @@ class Puzzle(object):
         return True
 
     def convertToStr(self):
-        newState = []
+        new_state = []
         for cup in self.state:
             temp_cup = copy.copy(cup)
             while len(temp_cup) < self.capacity:
                 temp_cup.append('.')
-            newState.append(temp_cup)
-        return (''.join(str(item) for innerlist in newState for item in innerlist))
+            new_state.append(temp_cup)
+        return (''.join(str(water) for cup in new_state for water in cup))
 
     def print(self, cup_width=6, cup_interval=3):
         # Print current status
