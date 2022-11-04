@@ -10,7 +10,12 @@ def printResult(test, level, search):
             print('Level: ' + str(i))
             test.readFile('./level/level'+str(i)+'.txt')
             test.print()
-            result = dfs(test)
+            result = None
+            if (search == 'dfs'):
+                result = dfs(test)
+            else:
+                result = A_star(test)
+
             if result == None:
                 print("None!")
             else:
@@ -22,7 +27,11 @@ def printResult(test, level, search):
         print('Level: ' + level)
         test.readFile('./level/level'+level+'.txt')
         test.print()
-        result = A_star(test)
+        result = None
+        if (search == 'dfs'):
+            result = dfs(test)
+        else:
+            result = A_star(test)
         if result == None:
             print("None!")
         else:
