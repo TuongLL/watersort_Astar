@@ -3,7 +3,7 @@ from puzzleClass import Puzzle
 
 
 def h_n(puzzle: Puzzle) -> int:
-    #smaller is better
+    # Smaller is better
     # Acceptable and consistent heuristics
     step = 0
     bottom = {}
@@ -37,21 +37,21 @@ def validate_path(path):
 
 
 def A_star(puzzle: Puzzle, attemp=100000):
-    ttt = 0
+    state_count = 0
     q = PriorityQueue()
     q.put((h_n(puzzle), [], puzzle))
     while not q.empty():
         score, path, pz = q.get()
-        if pz.isRight():
-            print("%d states searched" % ttt)
+        if pz.stateChecking():
+            print("%d states searched" % state_count)
             return path, pz
         if len(path) < 2 or (len(path) >= 2 and not validate_path(path)):
-            for succ in pz.get_successors():
+            for succ in pz.getSuccessors():
                 act, suc_pz = succ
                 q.put((f_n(path, suc_pz), path.copy()+[act], suc_pz))
-        ttt += 1
-        if (ttt > attemp):
+        state_count += 1
+        if (state_count > attemp):
             print("Maximum number of times exceeded")
             return None
-    print("unsolvable")
+    print("Unsolvable")
     return None
