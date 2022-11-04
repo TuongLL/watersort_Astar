@@ -3,9 +3,10 @@ import puzzleClass
 from dfs_algorithm import dfs
 from astar_algorithm import A_star
 
+
 def printResult(test, level, search):
     if level == 'all':
-        for i in range(1,41):
+        for i in range(1, 41):
             print('Level: ' + str(i))
             test.readFile('./level/level'+str(i)+'.txt')
             test.print()
@@ -29,13 +30,14 @@ def printResult(test, level, search):
             print(result[0])
             result[1].print()
 
+
 if __name__ == '__main__':
     test = puzzleClass.Puzzle()
 
     parser = argparse.ArgumentParser('Choose searching method and level')
-    parser.add_argument('--search', type=str, default='dfs',
+    parser.add_argument('-s', '--search', type=str, default='dfs', choices=['dfs', 'astar'],
                         help='Input searching method')
-    parser.add_argument('--level', default='all', help='Input level')
+    parser.add_argument('-lv', '--level', default='all', help='Input level')
     args = parser.parse_args()
 
     if args.search == 'dfs':
@@ -44,5 +46,5 @@ if __name__ == '__main__':
     elif args.search == 'astar':
         printResult(test, args.level, args.search)
 
-    else: 
+    else:
         print('Invalid searching method, please check it again')

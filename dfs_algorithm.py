@@ -12,7 +12,7 @@ def dfs(puzzle: Puzzle, attemp=100000):
         if pz.stateChecking():
             print("%d states searched" % state_count)
             return path, pz
-        for succ in pz.getSuccessors():
+        for succ in pz.getSuccessors()[::-1]:
             act, suc_pz = succ
             if suc_pz.convertToStr() not in visited:
                 stack.append((path.copy()+[act], suc_pz))
