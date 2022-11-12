@@ -1,5 +1,6 @@
 from puzzleClass import Puzzle
-
+from memory_profiler import profile
+@profile
 
 def dfs(puzzle: Puzzle, attemp=100000):
     state_count = 0

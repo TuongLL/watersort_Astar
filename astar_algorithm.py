@@ -1,6 +1,7 @@
 from queue import PriorityQueue
 from puzzleClass import Puzzle
-
+from memory_profiler import profile
+@profile
 
 def h_n(puzzle: Puzzle) -> int:
     # Smaller is better
