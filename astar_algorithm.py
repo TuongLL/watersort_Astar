@@ -32,24 +32,27 @@ def f_n(path, puzzle):
     return g_n(path) + h_n(puzzle)
 
 
-def validate_path(path):
-    return (path[-1][1] == path[-2][0] and path[-1][0] == path[-2][1])
+def visited_state(visited, pz):
+    return pz.convertToStr() in visited
 
 
 def A_star(puzzle: Puzzle, attemp=100000):
     state_count = 0
     q = PriorityQueue()
     q.put((h_n(puzzle), [], puzzle))
+    visited = set()
+    visited.add(puzzle.convertToStr())
     while not q.empty():
         score, path, pz = q.get()
         if pz.stateChecking():
             print("%d states searched" % state_count)
             return path, pz
-        if len(path) < 2 or (len(path) >= 2 and not validate_path(path)):
+        if len(path) < 2 or (len(path) >= 2 and not visited_state(visited, pz)):
             for succ in pz.getSuccessors():
                 act, suc_pz = succ
-                q.put((f_n(path, suc_pz), path.copy()+[act], suc_pz))
+                q.put((f_n(path+[act], suc_pz), path.copy()+[act], suc_pz))
         state_count += 1
+        visited.add(pz.convertToStr())
         if (state_count > attemp):
             print("Maximum number of times exceeded")
             return None
