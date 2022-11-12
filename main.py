@@ -3,14 +3,16 @@ import puzzleClass
 from dfs_algorithm import dfs
 from astar_algorithm import A_star
 import time
+import tracemalloc
 
 def printResult(test, level, search):
     if level == 'all':
-        for i in range(1, 41):
+        for i in range(1, 10):
             print('Level: ' + str(i))
             test.readFile('./level/level'+str(i)+'.txt')
             test.print()
             result = None
+            tracemalloc.start()
             start = time.time()
             if (search == 'dfs'):
                 result = dfs(test)
@@ -24,11 +26,14 @@ def printResult(test, level, search):
                 print(result[0])
                 result[1].print()
             print("Time: %s" % (time.time() - start))
+            print("Space: %s"% tracemalloc.get_traced_memory()[1])
+            tracemalloc.reset_peak()
     else:
         print('Level: ' + level)
         test.readFile('./level/level'+level+'.txt')
         test.print()
         result = None
+        tracemalloc.start()
         start = time.time()
         if (search == 'dfs'):
             result = dfs(test)
@@ -41,6 +46,7 @@ def printResult(test, level, search):
             print(result[0])
             result[1].print()
         print("Time: %s" % (time.time() - start))
+        print(tracemalloc.get_trace_memory())
 
 if __name__ == '__main__':
     test = puzzleClass.Puzzle()
