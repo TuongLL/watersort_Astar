@@ -5,7 +5,7 @@ def process_memory():
     process = psutil.Process(os.getpid())
     mem_info = process.memory_info()
     return mem_info.rss
- 
+
 # decorator function
 def profile(func):
     def wrapper(*args, **kwargs):
@@ -16,7 +16,6 @@ def profile(func):
         print("{}:consumed memory: {:,}".format(
             func.__name__,
             mem_before, mem_after, mem_after - mem_before))
-
         return result
     return wrapper
 @profile

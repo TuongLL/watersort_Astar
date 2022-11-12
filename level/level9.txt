@@ -1,8 +1,15 @@
-7
+14
 4
-4 1 2 3
-1 5 3 4
-1 2 3 4
-5 2 2 4
-5 5 3 1
+cyan cyan  black blue
+gray green pink purple
+brown red purple orange
+orange red pink orange
+blue yellow red  black
+ black brown  black yellow
+lime red purple brown
+lime pink purple lime
+blue cyan gray green
+green gray yellow brown
+blue lime yellow gray
+orange pink cyan green
 

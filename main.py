@@ -24,7 +24,6 @@ def printResult(test, level, search):
                 print(result[0])
                 result[1].print()
             print("Time: %s" % (time.time() - start))
-
     else:
         print('Level: ' + level)
         test.readFile('./level/level'+level+'.txt')
@@ -42,7 +41,6 @@ def printResult(test, level, search):
             print(result[0])
             result[1].print()
         print("Time: %s" % (time.time() - start))
-
 
 if __name__ == '__main__':
     test = puzzleClass.Puzzle()
