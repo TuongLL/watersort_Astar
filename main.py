@@ -2,7 +2,7 @@ import argparse
 import puzzleClass
 from dfs_algorithm import dfs
 from astar_algorithm import A_star
-
+import time
 
 def printResult(test, level, search):
     if level == 'all':
@@ -11,6 +11,7 @@ def printResult(test, level, search):
             test.readFile('./level/level'+str(i)+'.txt')
             test.print()
             result = None
+            start = time.time()
             if (search == 'dfs'):
                 result = dfs(test)
             else:
@@ -22,12 +23,13 @@ def printResult(test, level, search):
                 print("%d steps" % len(result[0]))
                 print(result[0])
                 result[1].print()
-
+            print("Time: %s" % (time.time() - start))
     else:
         print('Level: ' + level)
         test.readFile('./level/level'+level+'.txt')
         test.print()
         result = None
+        start = time.time()
         if (search == 'dfs'):
             result = dfs(test)
         else:
@@ -38,7 +40,7 @@ def printResult(test, level, search):
             print("%d steps" % len(result[0]))
             print(result[0])
             result[1].print()
-
+        print("Time: %s" % (time.time() - start))
 
 if __name__ == '__main__':
     test = puzzleClass.Puzzle()

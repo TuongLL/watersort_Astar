@@ -1,8 +1,10 @@
-7
+9
 4
-3 3 1 2
-5 2 5 1
-5 2 3 5
-1 4 3 4
-2 4 4 1
+grey yellow orange blue
+pink pink blue pink
+grey yellow black yellow
+black green pink blue
+green green orange yellow
+green grey grey orange
+orange black black blue
 
