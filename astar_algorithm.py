@@ -10,17 +10,14 @@ def process_memory():
 # decorator function
 def profile(func):
     def wrapper(*args, **kwargs):
-
         mem_before = process_memory()
         result = func(*args, **kwargs)
         mem_after = process_memory()
         print("{}:consumed memory: {:,}".format(
             func.__name__,
             mem_before, mem_after, mem_after - mem_before))
-
         return result
     return wrapper
-
 def h_n(puzzle: Puzzle) -> int:
     # Smaller is better
     # Acceptable and consistent heuristics
@@ -29,7 +26,7 @@ def h_n(puzzle: Puzzle) -> int:
     for cup in puzzle.state:
         if len(cup) == 0:
             continue
-        bottom[cup[0]] = bottom.get(cup[0], -1) + 1
+        bottom[cup[0]] = bottom.get(cup[0], 1) + 1
         first_color = cup[0]
         all_same = True
         for i in range(1, len(cup)):
@@ -38,7 +35,7 @@ def h_n(puzzle: Puzzle) -> int:
                 step += 1
                 all_same = False
         if all_same and len(cup) == puzzle.capacity:
-            step -= 1
+            step = 1
     step += sum(bottom.values())
     return step
 

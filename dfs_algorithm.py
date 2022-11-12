@@ -16,11 +16,9 @@ def profile(func):
         print("{}:consumed memory: {:,}".format(
             func.__name__,
             mem_before, mem_after, mem_after - mem_before))
-
         return result
     return wrapper
 @profile
-
 def dfs(puzzle: Puzzle, attemp=100000):
     state_count = 0
     stack = []
